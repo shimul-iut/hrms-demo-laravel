@@ -90,9 +90,9 @@ class EmployeeController extends Controller
       User::find($request->employee_id)->update(['email' => $request->email]);
       Employee::find($request->employee_id)->update(['FirstName' => $request->Fname, 'LastName' => $request->Lname,  'PhoneNumber' => $request->phone]);
       Setting::where('employee_id', $request->employee_id)->update(['preferredNotification' => $request->notification]);
-
-      $this->notify->updateEmployeeProfileNotification($request->employee_id);
       
+      $this->notify->updateEmployeeProfileNotification($request->employee_id);
+
       return back();
 
 

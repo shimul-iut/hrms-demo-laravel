@@ -19,6 +19,7 @@ class CreateNotificationsTable extends Migration
             $table->string('notificationText');
             $table->string('notificationStatus');
 	          $table->boolean('allNotified')->default(0);
+            $table->boolean('needs_approval')->default(1);
             $table->timestamps();
 
 	          $table->foreign('employee_id')->references('id')->on('employees');

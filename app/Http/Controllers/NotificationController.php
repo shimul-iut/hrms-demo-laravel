@@ -112,9 +112,29 @@ class NotificationController extends Controller
   }
 
   public function updateEmployeeProfileNotification($employee_id){
-      $allHRIDs = Role::where('Name' , 'HR Manager')->first()->User->pluck('id')->all();
-      $manager_id = Employee::find($employee_id)->ManagerID;
-      
+
+    $notification = new Notification();
+
+    $notification->employee_id = $employee_id;
+    $notification->notificationText = "Profile has been updated";
+    $notification->notificationStatus = "completed";
+    $notification->needs_approval = 0;
+
+    $notification->save();
+
+    $peferredChannelforEmployee = Employee::find($employee_id)->Setting->preferredNotification;
+    $this->broadcast->RouteNotifications($peferredChannelforEmployee, $notification);
+
+    $allHRIDs = Role::where('Name' , 'HR Manager')->first()->User->pluck('id')->all();
+
+    foreach ($allHRIDs as $id) {
+      $peferredChannelforHR = Employee::find($id)->Setting->preferredNotification;
+      $this->broadcast->RouteNotifications($peferredChannelforHR, $notification);
+    }
+    $manager_id = Employee::find($employee_id)->ManagerID;
+    $peferredChannelforHR = Employee::find($manager_id)->Setting->preferredNotification;
+    $this->broadcast->RouteNotifications($peferredChannelforHR, $notification);
+
   }
 
   public function number_of_working_days($from, $to)

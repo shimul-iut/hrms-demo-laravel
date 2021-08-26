@@ -19,7 +19,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                    @foreach(App\Notification::all() as $notification)
+                    @foreach(App\Notification::where('needs_approval' , 1)->get() as $notification)
                       <tr>
                       @if($notification->notificationStatus == "pending")
                         <td><input class="checkToProcessRequest"  data-id= "{{$notification->id }}" type="checkbox" /></td>

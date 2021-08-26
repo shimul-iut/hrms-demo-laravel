@@ -21,6 +21,7 @@ Class BroadcastNotificationController extends Controller
     $phone = $employee_id->PhoneNumber;
     $email = $employee_id->User->email;
     $userID = $notification->employee_id;
+
     if($notification->notificationStatus === 'pending')
     {
       $subText = " Submitted For ";
@@ -30,7 +31,8 @@ Class BroadcastNotificationController extends Controller
       $userID = User::find($employee_id->ManagerID)->id;
     }
     elseif ($notification->notificationStatus == 'approved') $subText = " Approved For ";
-    else $subText = " Rejected For ";
+    elseif ($notification->notificationStatus == 'declined') $subText = " Rejected For ";
+    else $subText = " ";
 
     $message = $notification->notificationText.$subText.$name;
 
@@ -39,12 +41,12 @@ Class BroadcastNotificationController extends Controller
     if($preference === "SMS") $this->sendSMS($notification, $message, $phone);
     elseif($preference === "Email") $this->sendEmail($notification, $message, $email);
     else $this->sendWebPush($notification, $message, $userID);
-    
+
   }
 
   public function sendSMS($notification, $message, $phone){
 
-    //Using the Nexmo Library from Vonage for Demo Purpose
+    //Using the Nexmo Library (Vonage) for Demo Purpose
     Nexmo::message()->send([
         'to' => '8801877689607', //Ideally should have been $phone
         'from' => '8801819458461',
@@ -58,8 +60,7 @@ Class BroadcastNotificationController extends Controller
   public function sendEmail($notification, $message, $email)
   {
     $details = ['email' => 'shimulcit08@gmail.com', 'message' => $message]; //ideally it would have been $email
-    SendEmail::dispatch($details); // Using Mailgun Free account
-
+    SendEmail::dispatch($details); // Dispatching the Mail Job
     $notification->update(['allNotified' => 1]);
     return back();
   }
