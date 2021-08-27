@@ -7,7 +7,7 @@ https://www.arubacloud.com/tutorial/how-to-install-laravel-with-lamp-and-compose
 
 - After the apache and mysql up and running , Clone repo :
  ```
- https://github.com/shimul-iut/horoscope-laravel.git
+https://github.com/shimul-iut/hrms-demo-laravel.git
  ```
 - Configure your `httpd.conf` file with the appropriate Document root and Server IP values.
 - Rename `.env.example` file to `.env`inside your project root and fill the database information.
