@@ -19,18 +19,8 @@ https://www.arubacloud.com/tutorial/how-to-install-laravel-with-lamp-and-compose
 
 ## Notes:
 
-1. None of the Calenders is pre-created in this app. The app is designed in such a way that whenever an user selects a sign and a year combination for the first time, the system populates the tables on the fly and shows the results. 
+4. There is a live URL where the app is hosted. This will be opened for a limited time. URL Link: http://172.104.43.53/
 
-2. Same happens when an user try to check the best zodiac sign for a given year.
-3. There are some basic test cases to test the api responses as well. Test them if you wish to by running `php artisan Test`
-4. There is a live URL where the app is hosted. This will be opened for a limited time. URL Link: http://139.59.230.43/
 
-## Demo Image:
-
-### Homepage
-![alt text](https://github.com/shimul-iut/horoscope-laravel/blob/master/public/home_page.png)
-
-### Calender Page
-![alt text](https://github.com/shimul-iut/horoscope-laravel/blob/master/public/calender_page.png)
 
 ```
